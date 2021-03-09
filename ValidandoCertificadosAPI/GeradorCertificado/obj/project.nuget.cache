@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "eEIqubm0nLArrJGY6x3jUMPSm8GlhJoDnJgybKSiq4dKtcx/lCxIS/TI3sgXleO4RsK+LO1FgkTMfEGAm642TA==",
+  "success": true,
+  "projectFilePath": "C:\\Git\\ValidandoCertificadoAPI\\ValidandoCertificadosAPI\\GeradorCertificado\\GeradorCertificado.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\certificatemanager\\1.0.5\\certificatemanager.1.0.5.nupkg.sha512",
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.13\\microsoft.extensions.dependencyinjection.3.1.13.nupkg.sha512",
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.13\\microsoft.extensions.dependencyinjection.abstractions.3.1.13.nupkg.sha512",
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\system.security.cryptography.cng\\4.7.0\\system.security.cryptography.cng.4.7.0.nupkg.sha512",
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\system.security.cryptography.pkcs\\4.7.0\\system.security.cryptography.pkcs.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

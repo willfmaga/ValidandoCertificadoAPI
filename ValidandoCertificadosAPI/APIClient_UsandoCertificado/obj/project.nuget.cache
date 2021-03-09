@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lz+COsjnLZMcfg0NdzlZmlNHfGM73c/HqMPEY1iV68GcUpXvArQiZn5N0CIrlmTs67ijcrafUQ0BXfsXQGxvZQ==",
+  "success": true,
+  "projectFilePath": "C:\\Git\\ValidandoCertificadoAPI\\ValidandoCertificadosAPI\\APIClient_UsandoCertificado\\APIClient_UsandoCertificado.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

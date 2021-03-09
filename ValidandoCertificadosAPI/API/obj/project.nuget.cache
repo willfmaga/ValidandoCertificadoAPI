@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "cdf0G6WIh7b9DDe0Gr06Dy06ACXTLKjKxmYRUyV1GNB7lLoHcS+7/f+Uz8tZzvU5lDdf/GVCeZCiIWtNTV6REQ==",
+  "success": true,
+  "projectFilePath": "C:\\Git\\ValidandoCertificadoAPI\\ValidandoCertificadosAPI\\API\\API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\microsoft.aspnetcore.authentication.certificate\\3.1.13\\microsoft.aspnetcore.authentication.certificate.3.1.13.nupkg.sha512",
+    "C:\\Users\\william.magalhaes\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

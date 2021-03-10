@@ -25,6 +25,8 @@ namespace APIClient_UsandoCertificado
             {
                 var responseContent = response.Result.Content.ReadAsStringAsync();
                 var data = JsonConvert.SerializeObject(responseContent);
+
+                Console.WriteLine(data);
                 return;
             }
 

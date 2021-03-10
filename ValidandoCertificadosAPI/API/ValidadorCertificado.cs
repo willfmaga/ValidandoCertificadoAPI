@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
 namespace API
@@ -14,7 +15,7 @@ namespace API
             //var certificadoParaComparar = new X509Certificate2(@"C:\temp\certificado\client_test.pfx", "19372846");
            var certificadoParaComparar = CarregaCertificados(clientCertificate);
 
-            if (certificadoParaComparar.Thumbprint == clientCertificate.Thumbprint)
+            if (certificadoParaComparar != null && certificadoParaComparar.Thumbprint == clientCertificate.Thumbprint)
             {
                 return true;
 
@@ -35,7 +36,8 @@ namespace API
 
             var certificates = new X509Certificate2Collection(store.Certificates);
 
-           return  certificates.Find(X509FindType.FindByIssuerName, clientCertificate.IssuerName, true)[0];
+           //certificates.Find(X509FindType.FindByIssuerName, clientCertificate.IssuerName, true)[0];
+            return certificates.Cast<X509Certificate2>().Where(x => x.Subject == clientCertificate.Subject).FirstOrDefault();
         }
     }
 }

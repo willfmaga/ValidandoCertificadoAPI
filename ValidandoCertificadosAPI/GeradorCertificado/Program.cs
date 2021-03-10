@@ -8,6 +8,10 @@ namespace GeradorCertificado
 {
     class Program
     {
+        public const string DNS = "localhost";
+        private const string DIRETORIO= @"c:\temp\certificado\";
+        private static string DIRETORIO_COMPLETO = Path.Combine(DIRETORIO, DNS);
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
@@ -16,9 +20,9 @@ namespace GeradorCertificado
 
         static void GeraCertificado()
         {
-            if (!Directory.Exists(@"c:\temp\certificado\"))
+            if (!Directory.Exists(DIRETORIO_COMPLETO))
             {
-                Directory.CreateDirectory(@"c:\temp\certificado\");
+                Directory.CreateDirectory(DIRETORIO_COMPLETO);
             }
 
             var serviceProvider = new ServiceCollection()
@@ -31,31 +35,31 @@ namespace GeradorCertificado
             var root = createClientServerAuthCerts.NewRootCertificate(
                 new DistinguishedName
                 {
-                    CommonName = "root_test",
-                    Country = "CH"
+                    CommonName = $"root_test_{DNS}",
+                    Country = "BR"
                 },
                 new ValidityPeriod
                 {
                     ValidFrom = DateTime.UtcNow,
                     ValidTo = DateTime.UtcNow.AddYears(10)
                 },
-                3, "localhost");
+                3, DNS);
 
-            root.FriendlyName = "root_test certificate";
+            root.FriendlyName = $"root_test_{DNS} certificate";
 
             string password = "19372846";
             var importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
 
             var rootCertInPfxBtyes = importExportCertificate.ExportRootPfx(password, root);
-            File.WriteAllBytes(@"c:\temp\certificado\root_test.pfx", rootCertInPfxBtyes);
+            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO ,$"root_test_{DNS}.pfx"), rootCertInPfxBtyes);
 
             var intermediate = createClientServerAuthCerts
                     .NewIntermediateChainedCertificate(
 
                     new DistinguishedName
                     {
-                        CommonName = "intermediate_test",
-                        Country = "CH"
+                        CommonName = $"intermediate_test_{DNS}",
+                        Country = "BR"
                     },
 
                     new ValidityPeriod
@@ -63,33 +67,33 @@ namespace GeradorCertificado
                         ValidFrom = DateTime.UtcNow,
                         ValidTo = DateTime.UtcNow.AddYears(10)
                     },
-                    2, "localhost", root);
+                    2, DNS, root);
 
-            intermediate.FriendlyName = "intermediate_test certificate";
+            intermediate.FriendlyName = $"intermediate_test_{DNS} certificate";
 
             importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
 
             var intermediateCertInPfxBtyes = importExportCertificate.ExportChainedCertificatePfx(password, intermediate, root);
-            File.WriteAllBytes(@"c:\temp\certificado\intermediate_test.pfx", intermediateCertInPfxBtyes);
+            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO, $"intermediate_test_{DNS}.pfx"), intermediateCertInPfxBtyes);
 
             var client = createClientServerAuthCerts.NewClientChainedCertificate(
                 new DistinguishedName 
                 { 
-                    CommonName = "client_test", 
-                    Country = "CH" 
+                    CommonName = $"client_test_{DNS}", 
+                    Country = "BR" 
                 },
                 new ValidityPeriod 
                 { 
                     ValidFrom = DateTime.UtcNow, 
                     ValidTo = DateTime.UtcNow.AddYears(10) 
                 },
-                "localhost", intermediate);
-            client.FriendlyName = "client certificate";
+                DNS, intermediate);
+            client.FriendlyName = $"client_{DNS} certificate";
 
             importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
 
             var clientCertInPfxBtyes = importExportCertificate.ExportChainedCertificatePfx(password, client, intermediate);
-            File.WriteAllBytes(@"c:\temp\certificado\client_test.pfx", clientCertInPfxBtyes);
+            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO, $"client_test_{DNS}.pfx"), clientCertInPfxBtyes);
 
         }
     }

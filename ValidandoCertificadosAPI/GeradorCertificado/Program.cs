@@ -73,8 +73,16 @@ namespace GeradorCertificado
             File.WriteAllBytes(@"c:\temp\certificado\intermediate_test.pfx", intermediateCertInPfxBtyes);
 
             var client = createClientServerAuthCerts.NewClientChainedCertificate(
-                new DistinguishedName { CommonName = "client_test", Country = "CH" },
-                new ValidityPeriod { ValidFrom = DateTime.UtcNow, ValidTo = DateTime.UtcNow.AddYears(10) },
+                new DistinguishedName 
+                { 
+                    CommonName = "client_test", 
+                    Country = "CH" 
+                },
+                new ValidityPeriod 
+                { 
+                    ValidFrom = DateTime.UtcNow, 
+                    ValidTo = DateTime.UtcNow.AddYears(10) 
+                },
                 "localhost", intermediate);
             client.FriendlyName = "client certificate";
 

@@ -8,9 +8,11 @@ namespace GeradorCertificado
 {
     class Program
     {
-        public const string DNS = "localhost";
+        public const string DNS = "localhost"; //"de-vw-dv-ap-179.repom.com.br";
         private const string DIRETORIO= @"c:\temp\certificado\";
         private static string DIRETORIO_COMPLETO = Path.Combine(DIRETORIO, DNS);
+        private const string COUNTRY = "BR";
+        private const string password = "123";
 
         static void Main(string[] args)
         {
@@ -35,8 +37,8 @@ namespace GeradorCertificado
             var root = createClientServerAuthCerts.NewRootCertificate(
                 new DistinguishedName
                 {
-                    CommonName = $"root_test_{DNS}",
-                    Country = "BR"
+                    CommonName = $"root_{DNS}",
+                    Country = COUNTRY 
                 },
                 new ValidityPeriod
                 {
@@ -45,21 +47,20 @@ namespace GeradorCertificado
                 },
                 3, DNS);
 
-            root.FriendlyName = $"root_test_{DNS} certificate";
+            root.FriendlyName = $"root_{DNS} certificate";
 
-            string password = "19372846";
             var importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
 
             var rootCertInPfxBtyes = importExportCertificate.ExportRootPfx(password, root);
-            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO ,$"root_test_{DNS}.pfx"), rootCertInPfxBtyes);
+            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO ,$"root_{DNS}.pfx"), rootCertInPfxBtyes);
 
             var intermediate = createClientServerAuthCerts
                     .NewIntermediateChainedCertificate(
 
                     new DistinguishedName
                     {
-                        CommonName = $"intermediate_test_{DNS}",
-                        Country = "BR"
+                        CommonName = $"intermediate_{DNS}",
+                        Country = COUNTRY
                     },
 
                     new ValidityPeriod
@@ -69,18 +70,18 @@ namespace GeradorCertificado
                     },
                     2, DNS, root);
 
-            intermediate.FriendlyName = $"intermediate_test_{DNS} certificate";
+            intermediate.FriendlyName = $"intermediate_{DNS} certificate";
 
             importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
 
             var intermediateCertInPfxBtyes = importExportCertificate.ExportChainedCertificatePfx(password, intermediate, root);
-            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO, $"intermediate_test_{DNS}.pfx"), intermediateCertInPfxBtyes);
+            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO, $"intermediate_{DNS}.pfx"), intermediateCertInPfxBtyes);
 
             var client = createClientServerAuthCerts.NewClientChainedCertificate(
                 new DistinguishedName 
                 { 
-                    CommonName = $"client_test_{DNS}", 
-                    Country = "BR" 
+                    CommonName = $"client_{DNS}", 
+                    Country = COUNTRY  
                 },
                 new ValidityPeriod 
                 { 
@@ -93,7 +94,7 @@ namespace GeradorCertificado
             importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
 
             var clientCertInPfxBtyes = importExportCertificate.ExportChainedCertificatePfx(password, client, intermediate);
-            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO, $"client_test_{DNS}.pfx"), clientCertInPfxBtyes);
+            File.WriteAllBytes(Path.Combine(DIRETORIO_COMPLETO, $"client_{DNS}.pfx"), clientCertInPfxBtyes);
 
         }
     }
